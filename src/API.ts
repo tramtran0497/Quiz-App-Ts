@@ -1,6 +1,7 @@
 import { mixAndShuffleAnswer } from "./utils/mixAndShuffleAnswer";
 
 export type Question = {
+    question: string,
     category: string,
     type: string,
     difficulty: string,
