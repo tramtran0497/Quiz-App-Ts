@@ -17,6 +17,7 @@ const QuestionCard: React.FunctionComponent<Props> = ({question, answers, userAn
         {
             answers.map((answer: string, index: number) => (
                 <div key={index}>
+                    {/* How to refresh selected choice for next question? */}
                     <input type="radio" id="html" name="answer" value={answer} onClick={callback} disabled={!!userAnswer}/>
                     <label htmlFor="answer">{answer}</label>
                 </div>

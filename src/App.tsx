@@ -37,7 +37,7 @@ function App() {
       const answerOfUser = e.currentTarget.value;
       const isCorrect = answerOfUser === questions[number].correct_answer;
       if(isCorrect){
-        // prevent to repeat correct answer??
+        // prevent to repeat correct answer by disable feature
         setScore(pre => pre + 1);
       };
       const answerObj = {
@@ -60,7 +60,6 @@ function App() {
   };
 
   const preQuestion = () => {
-    console.log(number)
     if(number < 0) setNumber(0);
     else{
       const preQ = number - 1;
@@ -73,7 +72,7 @@ function App() {
       <h1>QUIZ GAME</h1>
       {!gameOver ? <p className='score'>Score: {score}</p> : null}
       {loading ? <p>LOADING...</p> : null}
-      {gameOver || userAnswers.length === TOTAL_QUESTIONS ? <button onClick={startGame}>Start</button> : null}
+      {gameOver ? <button onClick={startGame}>Start</button> : null}
       {!loading && !gameOver && (
         <>
           <QuestionCard
@@ -85,7 +84,15 @@ function App() {
                 callback = {checkAnswer}
           />
           <button disabled={number === 0? true : false} onClick={preQuestion}>Preview</button>
-          <button disabled={number === TOTAL_QUESTIONS? true : false} onClick={nextQuestion}>Next</button>
+          <button disabled={number === TOTAL_QUESTIONS? true : false} onClick={nextQuestion}>{number === (TOTAL_QUESTIONS - 1) ? "Finish": "Next"}</button>
+          {userAnswers.length === TOTAL_QUESTIONS ? (
+            <div>
+              <h2>END GAME</h2>
+              <h3>YOUR SCORE: {score}/ {TOTAL_QUESTIONS}</h3>
+              <p>Do you want to replay quiz game?</p>
+              <button onClick={startGame}>Restart</button>
+            </div>
+          ) : null}
         </>
       )}
     </div>
